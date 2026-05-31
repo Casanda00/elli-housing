@@ -1395,3 +1395,41 @@ input[type=range]:focus {
   margin-top: var(--space-sm);
   display: block;
 }
+
+/* ==========================================================================
+   Feedback Modal
+   ========================================================================== */
+.feedback-modal-content {
+  max-width: 680px;
+  width: 95%;
+  height: 85vh;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
+.feedback-modal-content .modal-header {
+  padding: var(--space-lg) var(--space-xl);
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.feedback-modal-body {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+}
+
+.feedback-modal-body iframe {
+  flex: 1;
+  border: none;
+  background: #fff;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+/* Separator between header buttons */
+.about-btn + .about-btn {
+  border-left: 1px solid var(--bg-glass-border);
+}

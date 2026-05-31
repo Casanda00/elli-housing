@@ -62,7 +62,10 @@
       modalLi1: "Instantly see travel times by foot, bike, or car.",
       modalLi2: "Filter housing by your rent budget and preferred apartment type.",
       modalLi3: "Discover nearby amenities like supermarkets and sports facilities.",
-      modalStart: "Start Exploring"
+      modalStart: "Start Exploring",
+      // Feedback modal
+      feedbackTitle: "Give feedback",
+      feedbackModalTitle: "Send Feedback"
     },
     fi: {
       title: "Ellin Etäisyyshaku",
@@ -109,7 +112,10 @@
       modalLi1: "Nähdä heti matka-ajat kävellen, pyörällä tai autolla.",
       modalLi2: "Suodattaa asuntoja vuokrabudjetin ja asuntotyypin mukaan.",
       modalLi3: "Löytää lähipalvelut, kuten supermarketit ja liikuntapaikat.",
-      modalStart: "Aloita tutkiminen"
+      modalStart: "Aloita tutkiminen",
+      // Feedback modal
+      feedbackTitle: "Anna palautetta",
+      feedbackModalTitle: "Lähetä palautetta"
     }
   };
 
@@ -171,6 +177,7 @@
       initTypeFilter();
       initLangToggle();
       initModal();
+      initFeedbackModal();
       applyTranslations();
       calculateAllDistances();
     } catch (err) {
@@ -442,6 +449,38 @@
       setTimeout(openModal, 500); // Small delay for effect
       sessionStorage.setItem('elli-modal-seen', 'true');
     }
+  }
+
+  // 📝 Feedback Modal Logic 📝
+  function initFeedbackModal() {
+    const modal = document.getElementById('feedback-modal');
+    const closeBtn = document.getElementById('feedback-modal-close');
+    const feedbackBtn = document.getElementById('feedback-btn');
+    const iframe = document.getElementById('feedback-iframe');
+    let iframeLoaded = false;
+
+    function closeFeedback() {
+      modal.classList.remove('active');
+    }
+
+    function openFeedback() {
+      // Lazy-load iframe src on first open
+      if (!iframeLoaded && iframe.dataset.src) {
+        iframe.src = iframe.dataset.src;
+        iframeLoaded = true;
+      }
+      modal.classList.add('active');
+    }
+
+    if (feedbackBtn) {
+      feedbackBtn.addEventListener('click', openFeedback);
+    }
+    closeBtn.addEventListener('click', closeFeedback);
+
+    // Close on clicking outside
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeFeedback();
+    });
   }
 
 
