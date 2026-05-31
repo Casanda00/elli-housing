@@ -1064,17 +1064,20 @@ body {
     overflow: hidden;
     height: 100vh;
     height: 100dvh;
+    display: flex;
+    flex-direction: column;
   }
 
-  /* Header: switch to sticky so it doesn't overlap content */
+  /* Header: switch to normal flex item since body is flex column */
   #app-header {
-    position: sticky;
+    position: relative;
     top: 0;
     flex-direction: column;
     align-items: stretch;
     padding: var(--space-sm) var(--space-md);
     gap: var(--space-sm);
     height: auto;
+    flex: none;
   }
 
   .header-left {
@@ -1125,6 +1128,9 @@ body {
 
   /* Property panel: fills remaining space, scrollable */
   #property-panel {
+    width: 100%;
+    min-width: 100%;
+    border-right: none;
     display: flex;
     flex-direction: column;
     flex: 1;
