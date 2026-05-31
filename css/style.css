@@ -343,6 +343,17 @@ body {
   color: var(--text-muted);
 }
 
+/* Filter Section */
+.mobile-filter-toggle {
+  display: none;
+}
+
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
 /* Sort Controls */
 .sort-controls {
   display: flex;
@@ -1113,6 +1124,40 @@ body {
 
   .filter-group label {
     font-size: 0.68rem;
+  }
+
+  /* Mobile Filter Toggle */
+  .mobile-filter-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    width: 100%;
+    padding: 10px;
+    background: var(--bg-glass);
+    border: 1px solid var(--bg-glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: var(--space-xs);
+    margin-bottom: var(--space-xs);
+    transition: all var(--duration) var(--ease);
+  }
+
+  .mobile-filter-toggle:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .mobile-filter-toggle.active {
+    border-color: var(--accent);
+    color: var(--accent-light);
+    background: var(--accent-soft);
+  }
+
+  .filter-section.mobile-collapsed {
+    display: none;
   }
 
   .pill-btn {

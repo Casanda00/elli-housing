@@ -82,43 +82,48 @@
           <span class="search-icon"><i class="ph ph-magnifying-glass"></i></span>
           <input type="text" id="search-input" data-i18n-placeholder="searchPlaceholder" placeholder="Search by address or area..." autocomplete="off">
         </div>
-        <div class="filter-group">
-          <label data-i18n="maxTravelTime">Max travel time</label>
-          <div class="pill-options" id="radius-options">
-            <button class="pill-btn radius-btn" data-minutes="5">5 min</button>
-            <button class="pill-btn radius-btn" data-minutes="10">10 min</button>
-            <button class="pill-btn radius-btn" data-minutes="15">15 min</button>
-            <button class="pill-btn radius-btn" data-minutes="20">20 min</button>
-            <button class="pill-btn radius-btn" data-minutes="30">30 min</button>
-            <button class="pill-btn radius-btn active" data-minutes="0" data-i18n="all">All</button>
+        <button class="mobile-filter-toggle" id="mobile-filter-toggle">
+          <i class="ph ph-faders"></i> <span data-i18n="filtersToggle">Filters & Sort</span>
+        </button>
+        <div class="filter-section mobile-collapsed" id="filter-section">
+          <div class="filter-group">
+            <label data-i18n="maxTravelTime">Max travel time</label>
+            <div class="pill-options" id="radius-options">
+              <button class="pill-btn radius-btn" data-minutes="5">5 min</button>
+              <button class="pill-btn radius-btn" data-minutes="10">10 min</button>
+              <button class="pill-btn radius-btn" data-minutes="15">15 min</button>
+              <button class="pill-btn radius-btn" data-minutes="20">20 min</button>
+              <button class="pill-btn radius-btn" data-minutes="30">30 min</button>
+              <button class="pill-btn radius-btn active" data-minutes="0" data-i18n="all">All</button>
+            </div>
           </div>
-        </div>
-        <div class="filter-group">
-          <div style="display: flex; justify-content: space-between; align-items: baseline;">
-            <label data-i18n="maxRent">Max rent / month</label>
-            <span id="rent-value" style="font-size: 0.72rem; font-weight: 600; color: var(--accent-light);" data-i18n="all">All</span>
+          <div class="filter-group">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+              <label data-i18n="maxRent">Max rent / month</label>
+              <span id="rent-value" style="font-size: 0.72rem; font-weight: 600; color: var(--accent-light);" data-i18n="all">All</span>
+            </div>
+            <div class="slider-container" style="padding-top: 4px;">
+              <input type="range" id="rent-slider" min="200" max="800" step="50" value="800" style="width: 100%;">
+            </div>
           </div>
-          <div class="slider-container" style="padding-top: 4px;">
-            <input type="range" id="rent-slider" min="200" max="800" step="50" value="800" style="width: 100%;">
+          <div class="filter-group">
+            <label data-i18n="apartmentType">Apartment type</label>
+            <div class="pill-options" id="type-options">
+              <button class="pill-btn type-btn active" data-type="all" data-i18n="all">All</button>
+              <button class="pill-btn type-btn" data-type="Solu" data-i18n="shared">Shared</button>
+              <button class="pill-btn type-btn" data-type="Yksiö" data-i18n="studio">Studio</button>
+              <button class="pill-btn type-btn" data-type="Perhe" data-i18n="family">Family</button>
+            </div>
           </div>
-        </div>
-        <div class="filter-group">
-          <label data-i18n="apartmentType">Apartment type</label>
-          <div class="pill-options" id="type-options">
-            <button class="pill-btn type-btn active" data-type="all" data-i18n="all">All</button>
-            <button class="pill-btn type-btn" data-type="Solu" data-i18n="shared">Shared</button>
-            <button class="pill-btn type-btn" data-type="Yksiö" data-i18n="studio">Studio</button>
-            <button class="pill-btn type-btn" data-type="Perhe" data-i18n="family">Family</button>
+          <div class="sort-controls">
+            <label for="sort-select" data-i18n="sortBy">Sort by</label>
+            <select id="sort-select">
+              <option value="distance" data-i18n="distanceNearest">Distance (nearest)</option>
+              <option value="price" data-i18n="priceLowest">Price (lowest)</option>
+              <option value="name" data-i18n="nameAZ">Name (A–Z)</option>
+              <option value="area" data-i18n="neighborhood">Neighborhood</option>
+            </select>
           </div>
-        </div>
-        <div class="sort-controls">
-          <label for="sort-select" data-i18n="sortBy">Sort by</label>
-          <select id="sort-select">
-            <option value="distance" data-i18n="distanceNearest">Distance (nearest)</option>
-            <option value="price" data-i18n="priceLowest">Price (lowest)</option>
-            <option value="name" data-i18n="nameAZ">Name (A–Z)</option>
-            <option value="area" data-i18n="neighborhood">Neighborhood</option>
-          </select>
         </div>
         <div class="results-summary" id="results-summary"></div>
       </div>

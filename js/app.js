@@ -65,8 +65,9 @@
       modalStart: "Start Exploring",
       // Feedback modal
       feedbackTitle: "Give feedback",
-      feedbackBtn: "Feedback",
-      feedbackModalTitle: "Send Feedback"
+      feedbackBtn: "Leave Feedback",
+      feedbackModalTitle: "Send Feedback",
+      filtersToggle: "Filters & Sort"
     },
     fi: {
       title: "Ellin Etäisyyshaku",
@@ -117,7 +118,8 @@
       // Feedback modal
       feedbackTitle: "Anna palautetta",
       feedbackBtn: "Palaute",
-      feedbackModalTitle: "Lähetä palautetta"
+      feedbackModalTitle: "Lähetä palautetta",
+      filtersToggle: "Suodattimet & Järjestys"
     }
   };
 
@@ -177,6 +179,7 @@
       initRadiusFilter();
       initRentFilter();
       initTypeFilter();
+      initMobileFilterToggle();
       initLangToggle();
       initModal();
       initFeedbackModal();
@@ -422,6 +425,17 @@
     }
 
     return true;
+  }
+
+  function initMobileFilterToggle() {
+    const filterToggle = document.getElementById('mobile-filter-toggle');
+    const filterSection = document.getElementById('filter-section');
+    if (filterToggle && filterSection) {
+      filterToggle.addEventListener('click', () => {
+        filterToggle.classList.toggle('active');
+        filterSection.classList.toggle('mobile-collapsed');
+      });
+    }
   }
 
   // ✨ Modal Logic ✨
