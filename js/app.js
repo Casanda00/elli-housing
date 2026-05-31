@@ -152,6 +152,7 @@
       initRentFilter();
       initTypeFilter();
       initLangToggle();
+      initModal();
       calculateAllDistances();
     } catch (err) {
       console.error('Elli Distance Finder init failed:', err);
@@ -390,8 +391,42 @@
     return true;
   }
 
+  // ✨ Modal Logic ✨
+  function initModal() {
+    const modal = document.getElementById('intro-modal');
+    const closeBtn = document.getElementById('modal-close');
+    const startBtn = document.getElementById('modal-start-btn');
+    const aboutBtn = document.getElementById('about-btn');
 
-  // ── Language Toggle ─────────────────────────────────────────────────
+    function closeModal() {
+      modal.classList.remove('active');
+    }
+
+    function openModal() {
+      modal.classList.add('active');
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    startBtn.addEventListener('click', closeModal);
+    if (aboutBtn) {
+      aboutBtn.addEventListener('click', openModal);
+    }
+
+    // Close on clicking outside
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Check if it's the first time visiting in this session
+    const hasSeenModal = sessionStorage.getItem('elli-modal-seen');
+    if (!hasSeenModal) {
+      setTimeout(openModal, 500); // Small delay for effect
+      sessionStorage.setItem('elli-modal-seen', 'true');
+    }
+  }
+
+
+  // 🌍 Language Toggle 🌍─────────────────────────────────────────────────
   function initLangToggle() {
     const buttons = document.querySelectorAll('.lang-btn');
     buttons.forEach(btn => {

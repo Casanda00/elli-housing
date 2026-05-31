@@ -35,6 +35,11 @@
       </div>
     </div>
     <div class="header-right">
+      <div class="lang-toggle" style="margin-right: var(--space-sm);">
+        <button class="lang-btn" id="about-btn" title="About this project" data-i18n-title="aboutProject">
+          <i class="ph ph-info" style="font-size: 1rem;"></i>
+        </button>
+      </div>
       <div class="lang-toggle" id="lang-toggle">
         <button class="lang-btn active" data-lang="en">EN</button>
         <button class="lang-btn" data-lang="fi">FI</button>
@@ -169,12 +174,36 @@
     <button class="route-close-btn" id="route-close-btn" title="Close route">✕</button>
   </div>
 
-  <!-- Leaflet JS -->
+  <!-- Welcome Modal -->
+  <div class="modal-overlay" id="intro-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 data-i18n="modalTitle">Welcome to Elli Distance Finder</h2>
+        <button class="modal-close" id="modal-close"><i class="ph ph-x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h3><i class="ph-fill ph-warning-circle" style="color: var(--yellow);"></i> The Problem</h3>
+          <p data-i18n="modalProblem">For prospective students who haven't arrived in Joensuu yet, finding the right housing can be tough. You constantly have to juggle between Joensuun Elli's website to check available apartments and Google Maps to manually search the distance to your new campus. This back-and-forth makes finding the right home from afar tedious and frustrating.</p>
+        </div>
+        <div class="modal-section">
+          <h3><i class="ph-fill ph-check-circle" style="color: var(--green);"></i> The Solution</h3>
+          <p data-i18n="modalSolution">This project solves that by providing a unified platform! Now you can:</p>
+          <ul class="modal-list">
+            <li><i class="ph-fill ph-map-pin"></i> <span data-i18n="modalLi1">Instantly see travel times by foot, bike, or car.</span></li>
+            <li><i class="ph-fill ph-funnel"></i> <span data-i18n="modalLi2">Filter housing by your rent budget and preferred apartment type.</span></li>
+            <li><i class="ph-fill ph-storefront"></i> <span data-i18n="modalLi3">Discover nearby amenities like supermarkets and sports facilities.</span></li>
+          </ul>
+        </div>
+        <button class="pill-btn active modal-start-btn" id="modal-start-btn" data-i18n="modalStart">Start Exploring</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""></script>
-  
-  <!-- App Data & Logic -->
   <script src="js/properties.js"></script>
   <script src="js/app.js"></script>
 </body>
