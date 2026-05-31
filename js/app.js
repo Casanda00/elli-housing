@@ -65,6 +65,7 @@
       modalStart: "Start Exploring",
       // Feedback modal
       feedbackTitle: "Give feedback",
+      feedbackBtn: "Feedback",
       feedbackModalTitle: "Send Feedback"
     },
     fi: {
@@ -115,6 +116,7 @@
       modalStart: "Aloita tutkiminen",
       // Feedback modal
       feedbackTitle: "Anna palautetta",
+      feedbackBtn: "Palaute",
       feedbackModalTitle: "Lähetä palautetta"
     }
   };
