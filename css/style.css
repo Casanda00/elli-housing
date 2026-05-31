@@ -1069,11 +1069,11 @@ body {
    Responsive — Mobile
    ========================================================================== */
 @media (max-width: 768px) {
-  /* Make the app behave like a native mobile app: no page scroll */
+  /* Make the app behave like a native mobile app: page scroll */
   body {
-    overflow: hidden;
-    height: 100vh;
-    height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: auto;
     display: flex;
     flex-direction: column;
   }
@@ -1118,9 +1118,9 @@ body {
   #app-main {
     flex-direction: column;
     flex: 1;
-    height: 100%;
+    height: auto;
     min-height: 0;
-    overflow: hidden;
+    overflow: visible;
     padding-top: 0;
   }
 
@@ -1143,13 +1143,10 @@ body {
     border-right: none;
     display: flex;
     flex-direction: column;
-    flex: 1;
-    height: 100%;
+    flex: none;
+    height: auto;
     min-height: 0;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: contain;
-    touch-action: pan-y;
+    overflow: visible;
   }
 
   /* Let the whole panel scroll naturally on mobile */
@@ -1160,6 +1157,13 @@ body {
     overflow: visible;
     max-height: none;
     padding-bottom: calc(var(--space-lg) + 120px);
+  }
+
+  body::-webkit-scrollbar,
+  #property-panel::-webkit-scrollbar,
+  .property-list::-webkit-scrollbar {
+    width: 0;
+    height: 0;
   }
 
   /* Compact controls on mobile */
