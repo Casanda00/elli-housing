@@ -1192,7 +1192,7 @@ body {
 
   .mobile-search-campus-row {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--space-sm);
     margin-bottom: var(--space-xs);
   }
@@ -1214,7 +1214,7 @@ body {
   }
 
   .mobile-search-campus-row .institution-selector label {
-    font-size: 0.68rem;
+    display: none;
   }
 
   /* Mobile Filter Toggle Button */
