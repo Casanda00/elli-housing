@@ -214,7 +214,6 @@
       const marker = L.marker([prop.lat, prop.lng], {
         icon: createPropertyIcon(prop.id)
       });
-      marker.bindPopup(createPopupContent(prop));
       marker.on('click', () => selectProperty(prop.id));
       marker.addTo(map);
       propertyMarkers[prop.id] = marker;
@@ -265,23 +264,6 @@
       </div>
     `);
     campusMarker.addTo(map);
-  }
-
-  function createPopupContent(prop) {
-    const dist = distances[prop.id];
-    let distText = '';
-    if (dist && dist[currentMode]) {
-      const km = (dist[currentMode].distance / 1000).toFixed(1);
-      const mins = Math.round(dist[currentMode].duration / 60);
-      distText = `<div class="popup-distance">${km} km · ${mins} min</div>`;
-    }
-    return `
-      <div>
-        <div class="popup-name">${prop.name}</div>
-        <div class="popup-address">${prop.address}</div>
-        ${distText}
-      </div>
-    `;
   }
 
   // ── Institution Selector ────────────────────────────────────────────
@@ -456,6 +438,18 @@
   }
 
   function initMobileLayout() {
+    function updateStickyOffsets() {
+      if (window.innerWidth > 768) return;
+      const header = document.getElementById('app-header');
+      const mapPanel = document.getElementById('map-panel');
+      if (!header || !mapPanel) return;
+
+      const headerHeight = header.offsetHeight;
+      const mapHeight = mapPanel.offsetHeight;
+      document.documentElement.style.setProperty('--mobile-header-height', `${headerHeight}px`);
+      document.documentElement.style.setProperty('--mobile-map-height', `${mapHeight}px`);
+    }
+
     function updateTransportTogglePosition() {
       const toggle = document.getElementById('transport-toggle');
       const mobileHeader = document.querySelector('.mobile-controls-header');
@@ -500,7 +494,9 @@
     }
 
     window.addEventListener('resize', updateTransportTogglePosition);
+    window.addEventListener('resize', updateStickyOffsets);
     updateTransportTogglePosition();
+    updateStickyOffsets();
   }
 
   // ✨ Modal Logic ✨
@@ -905,7 +901,6 @@
           else markerEl.classList.remove('filtered-out');
         }
         marker.setIcon(createPropertyIcon(prop.id, distClass, filteredOut));
-        marker.setPopupContent(createPopupContent(prop));
       }
     });
   }
@@ -935,9 +930,6 @@
 
     const markerEl = document.querySelector(`.custom-marker[data-id="${propId}"]`);
     if (markerEl) markerEl.classList.add('active');
-
-    const marker = propertyMarkers[propId];
-    if (marker) marker.openPopup();
 
     showRoute(propId);
 
