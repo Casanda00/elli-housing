@@ -791,10 +791,12 @@ body {
    ========================================================================== */
 .route-info-bar {
   position: fixed;
-  bottom: -200px;
-  left: calc(var(--panel-width) + var(--space-lg));
-  right: var(--space-lg);
-  z-index: 600;
+  bottom: -150%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 600px;
+  z-index: 9999;
   display: flex;
   align-items: flex-start;
   gap: var(--space-md);
@@ -953,17 +955,19 @@ body {
   background: none;
   border: 1px solid var(--bg-glass-border);
   color: var(--text-secondary);
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-sm);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
+  font-size: 1rem;
   transition: all var(--duration) var(--ease);
   flex-shrink: 0;
   margin-top: 2px;
+  position: relative;
+  z-index: 10001;
 }
 
 .route-close-btn:hover {
@@ -1055,13 +1059,11 @@ body {
    Responsive — Mobile
    ========================================================================== */
 @media (max-width: 768px) {
-  /* Allow the page to scroll vertically on mobile */
+  /* Make the app behave like a native mobile app: no page scroll */
   body {
-    overflow: auto;
-    overflow-x: hidden;
-    height: auto;
-    min-height: 100vh;
-    min-height: 100dvh;
+    overflow: hidden;
+    height: 100vh;
+    height: 100dvh;
   }
 
   /* Header: switch to sticky so it doesn't overlap content */
@@ -1099,10 +1101,13 @@ body {
     font-size: 0.68rem;
   }
 
-  /* Main layout: vertical, map on top, properties below */
+  /* Main layout: vertical, fixed map on top, properties below */
   #app-main {
     flex-direction: column;
     height: auto;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
     padding-top: 0;
   }
 
@@ -1110,33 +1115,33 @@ body {
   #map-panel {
     order: -1;
     width: 100%;
-    height: 45vh;
-    height: 45dvh;
+    height: 35vh;
+    height: 35dvh;
     min-height: 250px;
     flex: none;
     position: relative;
+    z-index: 10;
   }
 
   /* Property panel: fills remaining space, scrollable */
   #property-panel {
-    order: 1;
-    width: 100%;
-    min-width: 100%;
-    height: auto;
-    flex: none;
-    border-right: none;
-    border-top: 1px solid var(--bg-glass-border);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
   }
 
   /* Let the property list scroll within a reasonable max height */
   .property-list {
-    max-height: 50vh;
-    max-height: 50dvh;
+    flex: 1;
     overflow-y: auto;
+    max-height: none;
+    padding-bottom: calc(var(--space-lg) + 120px);
   }
 
   /* Compact controls on mobile */
   .panel-controls {
+    flex: none;
     padding: var(--space-sm) var(--space-md);
     gap: var(--space-xs);
   }
@@ -1288,13 +1293,16 @@ body {
     font-size: 0.6rem;
   }
 
-  /* Route info bar: position at bottom of the map area */
+  /* Route info bar: position at bottom of the screen */
   .route-info-bar {
     position: fixed;
     left: var(--space-sm);
     right: var(--space-sm);
-    bottom: -200px;
-    z-index: 600;
+    width: auto;
+    max-width: none;
+    transform: none;
+    bottom: -150%;
+    z-index: 9999;
   }
 
   .route-info-bar.visible {
@@ -1315,13 +1323,20 @@ body {
     gap: var(--space-xs);
   }
 
-  /* Transport toggle: hide labels, keep icons */
+  /* Transport toggle inside mobile controls header */
+  .mobile-controls-header .transport-toggle {
+    margin: 0;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
   .transport-label {
     display: none;
   }
 
   .transport-btn {
-    padding: 6px 10px;
+    padding: 6px 12px;
   }
 
   /* Feedback modal responsive */

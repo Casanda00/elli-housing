@@ -180,6 +180,7 @@
       initRentFilter();
       initTypeFilter();
       initMobileFilterToggle();
+      initMobileLayout();
       initLangToggle();
       initModal();
       initFeedbackModal();
@@ -452,6 +453,31 @@
     if (filterToggle) filterToggle.addEventListener('click', openDrawer);
     if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
     if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+  }
+
+  function initMobileLayout() {
+    function updateTransportTogglePosition() {
+      const toggle = document.getElementById('transport-toggle');
+      const mobileHeader = document.querySelector('.mobile-controls-header');
+      const desktopHeaderRight = document.querySelector('.header-right');
+      const langToggle = document.getElementById('lang-toggle');
+      const filterToggle = document.getElementById('mobile-filter-toggle');
+      
+      if (!toggle || !mobileHeader || !desktopHeaderRight) return;
+
+      if (window.innerWidth <= 768) {
+        if (toggle.parentNode !== mobileHeader) {
+          mobileHeader.insertBefore(toggle, filterToggle);
+        }
+      } else {
+        if (toggle.parentNode !== desktopHeaderRight) {
+          desktopHeaderRight.insertBefore(toggle, langToggle);
+        }
+      }
+    }
+
+    window.addEventListener('resize', updateTransportTogglePosition);
+    updateTransportTogglePosition();
   }
 
   // ✨ Modal Logic ✨
@@ -999,11 +1025,14 @@
 
   function clearRoute() {
     activePropertyId = null;
-    if (routeLayer) { map.removeLayer(routeLayer); routeLayer = null; }
+    if (routeLayer) { 
+      try { map.removeLayer(routeLayer); } catch(e) { console.warn('Could not remove route layer', e); }
+      routeLayer = null; 
+    }
     document.getElementById('route-info-bar').classList.remove('visible');
     document.querySelectorAll('.property-card.active').forEach(c => c.classList.remove('active'));
     document.querySelectorAll('.custom-marker.active').forEach(m => m.classList.remove('active'));
-    map.closePopup();
+    try { map.closePopup(); } catch(e) {}
   }
 
   // ── Loading State ───────────────────────────────────────────────────
