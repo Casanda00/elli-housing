@@ -53,7 +53,16 @@
       "Penttilä": "Penttilä",
       "Rantakylä": "Rantakylä",
       "Hukanhauta": "Hukanhauta",
-      "Near Campus": "Near Campus"
+      "Near Campus": "Near Campus",
+      // Modal translations
+      aboutProject: "About this project",
+      modalTitle: "Welcome to Elli Distance Finder",
+      modalProblem: "For prospective students who haven't arrived in Joensuu yet, finding the right housing can be tough. You constantly have to juggle between Joensuun Elli's website to check available apartments and Google Maps to manually search the distance to your new campus. This back-and-forth makes finding the right home from afar tedious and frustrating.",
+      modalSolution: "This project solves that by providing a unified platform! Now you can:",
+      modalLi1: "Instantly see travel times by foot, bike, or car.",
+      modalLi2: "Filter housing by your rent budget and preferred apartment type.",
+      modalLi3: "Discover nearby amenities like supermarkets and sports facilities.",
+      modalStart: "Start Exploring"
     },
     fi: {
       title: "Ellin Etäisyyshaku",
@@ -91,7 +100,16 @@
       "Penttilä": "Penttilä",
       "Rantakylä": "Rantakylä",
       "Hukanhauta": "Hukanhauta",
-      "Near Campus": "Kampuksen lähellä"
+      "Near Campus": "Kampuksen lähellä",
+      // Modal translations
+      aboutProject: "Tietoa projektista",
+      modalTitle: "Tervetuloa Ellin Etäisyyshakuun",
+      modalProblem: "Uusille opiskelijoille, jotka eivät ole vielä saapuneet Joensuuhun, oikean asunnon löytäminen voi olla haastavaa. Joudut jatkuvasti hyppimään Joensuun Ellin verkkosivujen (vapaiden asuntojen selaaminen) ja Google Mapsin (etäisyyksien mittaaminen) välillä. Tämä edestakainen pomppiminen tekee asunnon etsimisestä kaukaa työlästä ja turhauttavaa.",
+      modalSolution: "Tämä projekti ratkaisee ongelman tarjoamalla yhdistetyn alustan! Nyt voit:",
+      modalLi1: "Nähdä heti matka-ajat kävellen, pyörällä tai autolla.",
+      modalLi2: "Suodattaa asuntoja vuokrabudjetin ja asuntotyypin mukaan.",
+      modalLi3: "Löytää lähipalvelut, kuten supermarketit ja liikuntapaikat.",
+      modalStart: "Aloita tutkiminen"
     }
   };
 
