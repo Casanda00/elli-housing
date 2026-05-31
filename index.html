@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elli Distance Finder — Find Student Housing Near Your Campus</title>
+  <meta name="description" content="Instantly compare distances from Joensuun Elli student housing locations to your university campus in Joensuu, Finland.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin="">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- App CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header id="app-header">
+    <div class="header-left">
+      <div class="logo-mark">
+        <span class="logo-icon"><i class="ph-fill ph-house"></i></span>
+        <div class="logo-text">
+          <h1 data-i18n="title">Elli Distance Finder</h1>
+          <p class="tagline" data-i18n="tagline">Find housing near your campus</p>
+        </div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="lang-toggle" id="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="fi">FI</button>
+      </div>
+      <div class="transport-toggle" id="transport-toggle">
+        <button class="transport-btn active" data-mode="foot" title="Walking">
+          <span class="transport-icon"><i class="ph ph-person-simple-walk"></i></span>
+          <span class="transport-label" data-i18n="walk">Walk</span>
+        </button>
+        <button class="transport-btn" data-mode="bike" title="Cycling">
+          <span class="transport-icon"><i class="ph ph-bicycle"></i></span>
+          <span class="transport-label" data-i18n="bike">Bike</span>
+        </button>
+        <button class="transport-btn" data-mode="car" title="Driving">
+          <span class="transport-icon"><i class="ph ph-car"></i></span>
+          <span class="transport-label" data-i18n="drive">Drive</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="app-main">
+    <!-- Left Panel: Property List -->
+    <aside id="property-panel">
+      <div class="panel-controls">
+        <div class="institution-selector">
+          <label for="institution-select" data-i18n="campus">Campus</label>
+          <select id="institution-select">
+            <!-- Populated by JS -->
+          </select>
+        </div>
+        <div class="section-divider"></div>
+        <label class="section-label" data-i18n="locations">Locations</label>
+        <div class="search-box">
+          <span class="search-icon"><i class="ph ph-magnifying-glass"></i></span>
+          <input type="text" id="search-input" data-i18n-placeholder="searchPlaceholder" placeholder="Search by address or area..." autocomplete="off">
+        </div>
+        <div class="filter-group">
+          <label data-i18n="maxTravelTime">Max travel time</label>
+          <div class="pill-options" id="radius-options">
+            <button class="pill-btn radius-btn" data-minutes="5">5 min</button>
+            <button class="pill-btn radius-btn" data-minutes="10">10 min</button>
+            <button class="pill-btn radius-btn" data-minutes="15">15 min</button>
+            <button class="pill-btn radius-btn" data-minutes="20">20 min</button>
+            <button class="pill-btn radius-btn" data-minutes="30">30 min</button>
+            <button class="pill-btn radius-btn active" data-minutes="0" data-i18n="all">All</button>
+          </div>
+        </div>
+        <div class="filter-group">
+          <div style="display: flex; justify-content: space-between; align-items: baseline;">
+            <label data-i18n="maxRent">Max rent / month</label>
+            <span id="rent-value" style="font-size: 0.72rem; font-weight: 600; color: var(--accent-light);" data-i18n="all">All</span>
+          </div>
+          <div class="slider-container" style="padding-top: 4px;">
+            <input type="range" id="rent-slider" min="200" max="800" step="50" value="800" style="width: 100%;">
+          </div>
+        </div>
+        <div class="filter-group">
+          <label data-i18n="apartmentType">Apartment type</label>
+          <div class="pill-options" id="type-options">
+            <button class="pill-btn type-btn active" data-type="all" data-i18n="all">All</button>
+            <button class="pill-btn type-btn" data-type="Solu" data-i18n="shared">Shared</button>
+            <button class="pill-btn type-btn" data-type="Yksiö" data-i18n="studio">Studio</button>
+            <button class="pill-btn type-btn" data-type="Perhe" data-i18n="family">Family</button>
+          </div>
+        </div>
+        <div class="sort-controls">
+          <label for="sort-select" data-i18n="sortBy">Sort by</label>
+          <select id="sort-select">
+            <option value="distance" data-i18n="distanceNearest">Distance (nearest)</option>
+            <option value="price" data-i18n="priceLowest">Price (lowest)</option>
+            <option value="name" data-i18n="nameAZ">Name (A–Z)</option>
+            <option value="area" data-i18n="neighborhood">Neighborhood</option>
+          </select>
+        </div>
+        <div class="results-summary" id="results-summary"></div>
+      </div>
+      <div class="property-list" id="property-list">
+        <!-- Property cards injected by JS -->
+        <div class="loading-state" id="loading-state">
+          <div class="spinner"></div>
+          <p data-i18n="calculatingDistances">Calculating distances...</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right Panel: Map -->
+    <section id="map-panel">
+      <div id="map"></div>
+      <!-- Map overlay stats -->
+      <div class="map-overlay" id="map-overlay">
+        <div class="overlay-stat">
+          <span class="stat-value" id="stat-total">—</span>
+          <span class="stat-label" data-i18n="properties">Properties</span>
+        </div>
+        <div class="overlay-stat">
+          <span class="stat-value" id="stat-nearest">—</span>
+          <span class="stat-label" data-i18n="nearest">Nearest</span>
+        </div>
+        <div class="overlay-stat">
+          <span class="stat-value" id="stat-avg">—</span>
+          <span class="stat-label" data-i18n="average">Average</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Route Info Bar (appears when a property is selected) -->
+  <div class="route-info-bar" id="route-info-bar">
+    <div class="route-info-content">
+      <div class="route-top-row">
+        <div class="route-name-area">
+          <span class="route-property-name" id="route-property-name"></span>
+          <span class="route-property-area" id="route-property-area"></span>
+        </div>
+        <div class="route-stats">
+          <span class="route-stat route-stat-highlight" id="route-distance"></span>
+          <span class="route-divider">•</span>
+          <span class="route-stat" id="route-time"></span>
+        </div>
+      </div>
+      <div class="route-details-row" id="route-details-row">
+        <div class="route-apartments" id="route-apartments"></div>
+        <div class="route-amenities" id="route-amenities"></div>
+        <div class="route-nearby" id="route-nearby"></div>
+      </div>
+      <a class="route-elli-link" id="route-elli-link" href="#" target="_blank" rel="noopener noreferrer">
+        <span data-i18n="viewOnElli">View on Elli's website →</span>
+      </a>
+    </div>
+    <button class="route-close-btn" id="route-close-btn" title="Close route">✕</button>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+  
+  <!-- App Data & Logic -->
+  <script src="js/properties.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

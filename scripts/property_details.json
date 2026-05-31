@@ -1,0 +1,973 @@
+{
+  "apajakuja-1": {
+    "yearBuilt": null,
+    "types": [],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": false,
+    "laundry": false,
+    "bikeStorage": false,
+    "apartments": []
+  },
+  "etelakatu-14": {
+    "yearBuilt": 1971,
+    "types": [
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Yksiö",
+        "size": "33",
+        "rent": "448.20-485.55"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "75",
+        "rent": "647.40-784.35"
+      }
+    ]
+  },
+  "huvilakatu-26": {
+    "yearBuilt": null,
+    "types": [],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ADSL",
+    "parking": false,
+    "laundry": false,
+    "bikeStorage": false,
+    "apartments": []
+  },
+  "itaranta-18": {
+    "yearBuilt": null,
+    "types": [
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": true,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Yksiö",
+        "size": "28",
+        "rent": "405.48-465.98"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "42.5",
+        "rent": "593.51-624.57"
+      }
+    ]
+  },
+  "kaislakatu-10": {
+    "yearBuilt": 1975,
+    "types": [
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "VDSL",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Yksiö",
+        "size": "44",
+        "rent": "392.63-490.68"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "77.5",
+        "rent": "457.88-752.84"
+      }
+    ]
+  },
+  "kalastajankatu-32": {
+    "yearBuilt": 1995,
+    "types": [
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": true,
+    "sauna": true,
+    "ellinet": "ADSL",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Yksiö",
+        "size": "32.5",
+        "rent": "390.77-462.48"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "61",
+        "rent": "537.75-653.13"
+      }
+    ]
+  },
+  "kalevankatu-26b": null,
+  "kalevankatu-29": {
+    "yearBuilt": 1999,
+    "types": [
+      "Solu",
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": true,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "23.8",
+        "rent": "304.20-312.39"
+      },
+      {
+        "type": "Yksiö",
+        "size": "34",
+        "rent": "427.70-463.25"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "74",
+        "rent": "612.30-764.96"
+      }
+    ]
+  },
+  "karjamaentie-4": {
+    "yearBuilt": 1986,
+    "types": [
+      "Solu",
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ADSL",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "23",
+        "rent": "220.32-236.39"
+      },
+      {
+        "type": "Yksiö",
+        "size": "35.5",
+        "rent": "371.83"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "55",
+        "rent": "529.42"
+      }
+    ]
+  },
+  "karjamaentie-10": {
+    "yearBuilt": 1986,
+    "types": [
+      "Solu",
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ADSL",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "23.6",
+        "rent": "200.64-235.94"
+      },
+      {
+        "type": "Yksiö",
+        "size": "47.5",
+        "rent": "263.96-440.44"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "68",
+        "rent": "415.42-623.82"
+      }
+    ]
+  },
+  "karjamaentie-12": {
+    "yearBuilt": 1986,
+    "types": [
+      "Solu",
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ADSL",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "24.8",
+        "rent": "233.06-247.01"
+      },
+      {
+        "type": "Yksiö",
+        "size": "46",
+        "rent": "433.41"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "65",
+        "rent": "449.20-624.49"
+      }
+    ]
+  },
+  "kimpikuja-3": {
+    "yearBuilt": 2014,
+    "types": [
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": true,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": true,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Yksiö",
+        "size": "33",
+        "rent": "435.13-486.75"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "41",
+        "rent": "604.75"
+      }
+    ]
+  },
+  "kiulutie-2": {
+    "yearBuilt": null,
+    "types": [],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": false,
+    "laundry": false,
+    "bikeStorage": false,
+    "apartments": []
+  },
+  "koulukatu-30b": {
+    "yearBuilt": 1968,
+    "types": [
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": true,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Yksiö",
+        "size": "33",
+        "rent": "451.40-495.80"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "43.5",
+        "rent": "510.60-599.40"
+      }
+    ]
+  },
+  "latolankatu-9": {
+    "yearBuilt": 1981,
+    "types": [
+      "Solu",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "Yes",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "25.5",
+        "rent": "213.01-237.15"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "51",
+        "rent": "439.45-456.63"
+      }
+    ]
+  },
+  "leinikkitie-4": {
+    "yearBuilt": 1992,
+    "types": [
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ADSL",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Yksiö",
+        "size": "35.5",
+        "rent": "432.00-499.20"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "62",
+        "rent": "536.63-759.20"
+      }
+    ]
+  },
+  "louhelankatu-10": {
+    "yearBuilt": 1958,
+    "types": [
+      "Solu",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ADSL",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "27",
+        "rent": "324.81-342.90"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "78",
+        "rent": "553.34-761.46"
+      }
+    ]
+  },
+  "lansikatu-18": {
+    "yearBuilt": 1972,
+    "types": [
+      "Solu",
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": true,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "21",
+        "rent": "249.92-319.51"
+      },
+      {
+        "type": "Yksiö",
+        "size": "31",
+        "rent": "318.56-441.57"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "52.5",
+        "rent": "529.53"
+      }
+    ]
+  },
+  "mantylantie-3": null,
+  "merimiehenkatu-30": {
+    "yearBuilt": 2006,
+    "types": [
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": true,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Yksiö",
+        "size": "35",
+        "rent": "451.77-510.89"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "72",
+        "rent": "597.30-786.80"
+      }
+    ]
+  },
+  "niskakatu-15": {
+    "yearBuilt": 2018,
+    "types": [
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": true,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": true,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Yksiö",
+        "size": "37",
+        "rent": "468.80-555.90"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "44",
+        "rent": "637.65"
+      }
+    ]
+  },
+  "niskakatu-16": {
+    "yearBuilt": 1985,
+    "types": [
+      "Solu",
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": true,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "27.9",
+        "rent": "322.91-431.06"
+      },
+      {
+        "type": "Yksiö",
+        "size": "27.5",
+        "rent": "521.90-529.94"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "55",
+        "rent": "639.63-764.78"
+      }
+    ]
+  },
+  "niskakatu-25": {
+    "yearBuilt": 1997,
+    "types": [
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": true,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Yksiö",
+        "size": "30.5",
+        "rent": "411.34-443.85"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "61.5",
+        "rent": "510.90-637.53"
+      }
+    ]
+  },
+  "noljakankaari-6": {
+    "yearBuilt": 1988,
+    "types": [
+      "Solu",
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ADSL",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "22.3",
+        "rent": "228.35-236.16"
+      },
+      {
+        "type": "Yksiö",
+        "size": "40",
+        "rent": "360.06-415.13"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "66",
+        "rent": "441.60-671.41"
+      }
+    ]
+  },
+  "noljakankaari-16": null,
+  "noljakankaari-38": {
+    "yearBuilt": 1991,
+    "types": [
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ADSL",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Perheasunto",
+        "size": "71.5",
+        "rent": "417.08-733.20"
+      }
+    ]
+  },
+  "noljakantie-86": {
+    "yearBuilt": null,
+    "types": [
+      "Solu",
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ADSL",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "24.7",
+        "rent": "216.26-262.31"
+      },
+      {
+        "type": "Yksiö",
+        "size": "39",
+        "rent": "408.87-414.18"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "71.5",
+        "rent": "455.60-778.45"
+      }
+    ]
+  },
+  "noljakantie-91": {
+    "yearBuilt": 1988,
+    "types": [
+      "Solu",
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ADSL",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "23.3",
+        "rent": "238.13-246.28"
+      },
+      {
+        "type": "Yksiö",
+        "size": "40",
+        "rent": "412.23-443.94"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "57",
+        "rent": "526.33-544.36"
+      }
+    ]
+  },
+  "nuottaniementie-16": {
+    "yearBuilt": 1983,
+    "types": [
+      "Solu",
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "23",
+        "rent": "300.15"
+      },
+      {
+        "type": "Yksiö",
+        "size": "23",
+        "rent": "404.55"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "46",
+        "rent": "548.10"
+      }
+    ]
+  },
+  "opiskelijankatu-7": {
+    "yearBuilt": 2019,
+    "types": [
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": true,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Yksiö",
+        "size": "33.5",
+        "rent": "469.00-568.75"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "52",
+        "rent": "708.75"
+      }
+    ]
+  },
+  "peltolankatu-11": {
+    "yearBuilt": 1984,
+    "types": [
+      "Solu"
+    ],
+    "elevator": true,
+    "sauna": true,
+    "ellinet": "ADSL",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "26",
+        "rent": "223.61-347.10"
+      }
+    ]
+  },
+  "penttilankulma-2": {
+    "yearBuilt": 2019,
+    "types": [
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": true,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Yksiö",
+        "size": "32",
+        "rent": "466.20-549.45"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "48.5",
+        "rent": "652.00-707.63"
+      }
+    ]
+  },
+  "pursitie-7": {
+    "yearBuilt": 1979,
+    "types": [
+      "Solu",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "36.8",
+        "rent": "229.36-345.18"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "74",
+        "rent": "492.45-668.51"
+      }
+    ]
+  },
+  "ruoritie-2": {
+    "yearBuilt": 1975,
+    "types": [
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Yksiö",
+        "size": "43",
+        "rent": "430.05-446.50"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "67",
+        "rent": "453.84-625.10"
+      }
+    ]
+  },
+  "sairaalakatu-8": {
+    "yearBuilt": 1952,
+    "types": [
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": true,
+    "sauna": true,
+    "ellinet": "ADSL",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Yksiö",
+        "size": "25",
+        "rent": "344.50-377.00"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "59",
+        "rent": "508.42-599.61"
+      }
+    ]
+  },
+  "suvikuja-8": {
+    "yearBuilt": 2017,
+    "types": [
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": true,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Yksiö",
+        "size": "34.5",
+        "rent": "429.20-502.98"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "43",
+        "rent": "638.57"
+      }
+    ]
+  },
+  "tikkamaentie-6": {
+    "yearBuilt": 2004,
+    "types": [
+      "Solu",
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": true,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "28.3",
+        "rent": "313.39-352.45"
+      },
+      {
+        "type": "Yksiö",
+        "size": "35",
+        "rent": "435.12-488.11"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "77",
+        "rent": "664.34-767.41"
+      }
+    ]
+  },
+  "sepankatu-15": {
+    "yearBuilt": 1973,
+    "types": [
+      "Solu",
+      "Yksiö"
+    ],
+    "elevator": false,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "23.3",
+        "rent": "280.85-319.21"
+      },
+      {
+        "type": "Yksiö",
+        "size": "34",
+        "rent": "392.49-443.88"
+      }
+    ]
+  },
+  "sepankatu-39b": {
+    "yearBuilt": 1997,
+    "types": [
+      "Solu",
+      "Perhe"
+    ],
+    "elevator": true,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "25.1",
+        "rent": "309.99-318.77"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "45.5",
+        "rent": "530.86"
+      }
+    ]
+  },
+  "suvikatu-17": {
+    "yearBuilt": 1974,
+    "types": [
+      "Solu",
+      "Yksiö",
+      "Perhe"
+    ],
+    "elevator": true,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "21.9",
+        "rent": "277.04-284.70"
+      },
+      {
+        "type": "Yksiö",
+        "size": "41.5",
+        "rent": "349.70-468.00"
+      },
+      {
+        "type": "Perheasunto",
+        "size": "65",
+        "rent": "448.50"
+      }
+    ]
+  },
+  "suvikatu-19": {
+    "yearBuilt": 1968,
+    "types": [
+      "Solu",
+      "Yksiö"
+    ],
+    "elevator": true,
+    "sauna": true,
+    "ellinet": "ETHERNET",
+    "parking": true,
+    "laundry": false,
+    "bikeStorage": true,
+    "apartments": [
+      {
+        "type": "Soluasunto",
+        "size": "28",
+        "rent": "278.14-333.40"
+      },
+      {
+        "type": "Yksiö",
+        "size": "37.5",
+        "rent": "550.76-593.12"
+      }
+    ]
+  }
+}
