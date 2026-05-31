@@ -462,16 +462,39 @@
       const desktopHeaderRight = document.querySelector('.header-right');
       const langToggle = document.getElementById('lang-toggle');
       const filterToggle = document.getElementById('mobile-filter-toggle');
-      
-      if (!toggle || !mobileHeader || !desktopHeaderRight) return;
+      const searchBox = document.querySelector('.search-box');
+      const institutionSelector = document.querySelector('.institution-selector');
+      const filterDrawer = document.getElementById('filter-drawer');
+      const drawerContent = document.querySelector('.drawer-scroll-content');
+      let mobileSearchRow = document.querySelector('.mobile-search-campus-row');
+
+      if (!toggle || !mobileHeader || !desktopHeaderRight || !searchBox || !institutionSelector || !filterDrawer || !drawerContent) return;
+
+      if (!mobileSearchRow) {
+        mobileSearchRow = document.createElement('div');
+        mobileSearchRow.className = 'mobile-search-campus-row';
+        searchBox.parentNode.insertBefore(mobileSearchRow, searchBox);
+      }
 
       if (window.innerWidth <= 768) {
         if (toggle.parentNode !== mobileHeader) {
           mobileHeader.insertBefore(toggle, filterToggle);
         }
+        if (searchBox.parentNode !== mobileSearchRow) {
+          mobileSearchRow.appendChild(searchBox);
+        }
+        if (institutionSelector.parentNode !== mobileSearchRow) {
+          mobileSearchRow.appendChild(institutionSelector);
+        }
       } else {
         if (toggle.parentNode !== desktopHeaderRight) {
           desktopHeaderRight.insertBefore(toggle, langToggle);
+        }
+        if (searchBox.parentNode !== document.querySelector('.panel-controls')) {
+          document.querySelector('.panel-controls').insertBefore(searchBox, filterDrawer);
+        }
+        if (institutionSelector.parentNode !== drawerContent) {
+          drawerContent.insertBefore(institutionSelector, drawerContent.firstElementChild || null);
         }
       }
     }
