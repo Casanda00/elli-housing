@@ -1080,7 +1080,7 @@ body {
 
   /* Header: switch to normal flex item since body is flex column */
   #app-header {
-    position: relative;
+    position: sticky;
     top: 0;
     flex-direction: column;
     align-items: stretch;
@@ -1088,6 +1088,7 @@ body {
     gap: var(--space-sm);
     height: auto;
     flex: none;
+    z-index: 40;
   }
 
   .header-left {
@@ -1122,19 +1123,19 @@ body {
     min-height: 0;
     overflow: visible;
     padding-top: 0;
+    isolation: isolate;
   }
 
   /* Map: fixed height on the upper portion */
   #map-panel {
     order: -1;
     width: 100%;
-    height: 35vh;
-    height: 35dvh;
+    height: max(250px, 35dvh);
     min-height: 250px;
     flex: none;
     position: sticky;
-    top: 0;
-    z-index: 20;
+    top: var(--mobile-header-height, 93px);
+    z-index: 1000;
     background: var(--bg-primary);
   }
 
@@ -1149,6 +1150,8 @@ body {
     height: auto;
     min-height: 0;
     overflow: visible;
+    position: relative;
+    z-index: 1;
   }
 
   /* Let the whole panel scroll naturally on mobile */
@@ -1158,6 +1161,7 @@ body {
     min-height: 0;
     overflow: visible;
     max-height: none;
+    padding-top: var(--space-sm);
     padding-bottom: calc(var(--space-lg) + 120px);
   }
 
@@ -1171,8 +1175,13 @@ body {
   /* Compact controls on mobile */
   .panel-controls {
     flex: none;
+    position: sticky;
+    top: calc(var(--mobile-header-height, 93px) + var(--mobile-map-height, max(250px, 35dvh)));
+    z-index: 900;
     padding: var(--space-sm) var(--space-md);
     gap: var(--space-xs);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--bg-glass-border);
   }
 
   .filter-group label {
