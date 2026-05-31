@@ -1148,7 +1148,7 @@ body {
   overflow: hidden;
 }
 
-.lang-btn {
+.lang-btn, .about-btn {
   padding: 6px 12px;
   border: none;
   background: transparent;
@@ -1165,7 +1165,7 @@ body {
   border-right: 1px solid var(--bg-glass-border);
 }
 
-.lang-btn:hover {
+.lang-btn:hover, .about-btn:hover {
   color: var(--text-primary);
   background: rgba(255, 255, 255, 0.05);
 }
