@@ -1025,15 +1025,22 @@ body {
    Responsive — Mobile
    ========================================================================== */
 @media (max-width: 768px) {
-  :root {
-    --header-height: auto;
-    --panel-width: 100%;
+  /* Allow the page to scroll vertically on mobile */
+  body {
+    overflow: auto;
+    overflow-x: hidden;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
+  /* Header: switch to sticky so it doesn't overlap content */
   #app-header {
+    position: sticky;
+    top: 0;
     flex-direction: column;
     align-items: stretch;
-    padding: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
     gap: var(--space-sm);
     height: auto;
   }
@@ -1048,25 +1055,72 @@ body {
     gap: var(--space-sm);
   }
 
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+  }
+
+  .logo-text h1 {
+    font-size: 1rem;
+  }
+
+  .tagline {
+    font-size: 0.68rem;
+  }
+
+  /* Main layout: vertical, map on top, properties below */
   #app-main {
-    flex-direction: column-reverse;
+    flex-direction: column;
+    height: auto;
     padding-top: 0;
   }
 
+  /* Map: fixed height on the upper portion */
+  #map-panel {
+    order: -1;
+    width: 100%;
+    height: 45vh;
+    height: 45dvh;
+    min-height: 250px;
+    flex: none;
+    position: relative;
+  }
+
+  /* Property panel: fills remaining space, scrollable */
   #property-panel {
+    order: 1;
     width: 100%;
     min-width: 100%;
     height: auto;
-    flex: 1;
+    flex: none;
     border-right: none;
     border-top: 1px solid var(--bg-glass-border);
   }
 
-  #map-panel {
-    height: auto;
-    flex: 1;
+  /* Let the property list scroll within a reasonable max height */
+  .property-list {
+    max-height: 50vh;
+    max-height: 50dvh;
+    overflow-y: auto;
   }
 
+  /* Compact controls on mobile */
+  .panel-controls {
+    padding: var(--space-sm) var(--space-md);
+    gap: var(--space-xs);
+  }
+
+  .filter-group label {
+    font-size: 0.68rem;
+  }
+
+  .pill-btn {
+    padding: 4px 8px;
+    font-size: 0.68rem;
+  }
+
+  /* Map overlay: stay inside the map panel */
   .map-overlay {
     bottom: var(--space-sm);
     left: var(--space-sm);
@@ -1075,21 +1129,66 @@ body {
   }
 
   .stat-value {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
+  .stat-label {
+    font-size: 0.6rem;
+  }
+
+  /* Route info bar: position at bottom of the map area */
   .route-info-bar {
+    position: fixed;
     left: var(--space-sm);
     right: var(--space-sm);
-    bottom: -80px;
+    bottom: -200px;
+    z-index: 600;
   }
 
   .route-info-bar.visible {
-    bottom: calc(50vh + var(--space-sm));
+    bottom: var(--space-sm);
   }
 
+  .route-top-row {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .route-stats {
+    align-self: flex-start;
+  }
+
+  .route-details-row {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  /* Transport toggle: hide labels, keep icons */
   .transport-label {
     display: none;
+  }
+
+  .transport-btn {
+    padding: 6px 10px;
+  }
+
+  /* Feedback modal responsive */
+  .feedback-modal-content {
+    width: 98%;
+    height: 90vh;
+    height: 90dvh;
+    max-height: 90vh;
+    max-height: 90dvh;
+  }
+
+  .feedback-modal-content .modal-header {
+    padding: var(--space-md);
+  }
+
+  /* Intro modal responsive */
+  .modal-content {
+    width: 95%;
+    padding: var(--space-lg);
   }
 }
 

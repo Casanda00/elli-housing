@@ -215,6 +215,11 @@
     });
 
     placeCampusMarker();
+
+    // Ensure map tiles render correctly after layout shifts (mobile orientation, resize)
+    window.addEventListener('resize', () => {
+      if (map) map.invalidateSize();
+    });
   }
 
   function createPropertyIcon(propId, distClass, outOfRadius) {
