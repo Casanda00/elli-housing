@@ -171,6 +171,7 @@
       initTypeFilter();
       initLangToggle();
       initModal();
+      applyTranslations();
       calculateAllDistances();
     } catch (err) {
       console.error('Elli Distance Finder init failed:', err);
