@@ -471,15 +471,21 @@ body {
   transition: width var(--duration) var(--ease);
 }
 
-.property-card:hover {
-  background: var(--bg-card-hover);
-  border-color: rgba(255, 255, 255, 0.12);
-  transform: translateX(2px);
-  box-shadow: var(--shadow-sm);
+.property-card {
+  touch-action: pan-y;
 }
 
-.property-card:hover::before {
-  width: 4px;
+@media (hover: hover) {
+  .property-card:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateX(2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .property-card:hover::before {
+    width: 4px;
+  }
 }
 
 .property-card.active {
@@ -1145,7 +1151,7 @@ body {
     max-height: none;
     padding-bottom: calc(var(--space-lg) + 120px);
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: contain;
+    touch-action: pan-y;
   }
 
   /* Compact controls on mobile */
