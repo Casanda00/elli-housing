@@ -1132,8 +1132,10 @@ body {
     height: 35dvh;
     min-height: 250px;
     flex: none;
-    position: relative;
-    z-index: 10;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--bg-primary);
   }
 
   /* Property panel: fills remaining space, scrollable */
