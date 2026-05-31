@@ -343,7 +343,26 @@ body {
   color: var(--text-muted);
 }
 
-/* Filter Section */
+/* Filter Section & Drawer (Desktop Layout) */
+.drawer-overlay {
+  display: none;
+}
+
+.mobile-controls-header, .drawer-header {
+  display: none;
+}
+
+.filter-drawer, .drawer-scroll-content {
+  display: contents; /* Flatten for flex ordering on desktop */
+}
+
+.institution-selector { order: 1; }
+.desktop-section-divider { order: 2; }
+.desktop-locations-label { order: 3; }
+.search-box { order: 4; }
+.filter-section { order: 5; }
+.results-summary { order: 6; }
+
 .mobile-filter-toggle {
   display: none;
 }
@@ -1126,14 +1145,30 @@ body {
     font-size: 0.68rem;
   }
 
-  /* Mobile Filter Toggle */
+  .desktop-locations-label,
+  .desktop-section-divider {
+    display: none;
+  }
+
+  .mobile-controls-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xs);
+  }
+
+  .mobile-controls-header .section-label {
+    margin-bottom: 0;
+  }
+
+  /* Mobile Filter Toggle Button */
   .mobile-filter-toggle {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: var(--space-sm);
-    width: 100%;
-    padding: 10px;
+    padding: 6px 12px;
     background: var(--bg-glass);
     border: 1px solid var(--bg-glass-border);
     border-radius: var(--radius-sm);
@@ -1141,8 +1176,6 @@ body {
     font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
-    margin-top: var(--space-xs);
-    margin-bottom: var(--space-xs);
     transition: all var(--duration) var(--ease);
   }
 
@@ -1150,14 +1183,88 @@ body {
     background: rgba(255, 255, 255, 0.05);
   }
 
-  .mobile-filter-toggle.active {
-    border-color: var(--accent);
-    color: var(--accent-light);
-    background: var(--accent-soft);
+  /* Drawer Overlay */
+  .drawer-overlay {
+    display: block;
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease);
+  }
+
+  .drawer-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Filter Drawer */
+  .filter-drawer {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: -100%; /* Slide from right */
+    width: 85%;
+    max-width: 320px;
+    height: 100vh;
+    height: 100dvh;
+    background: var(--bg-secondary);
+    z-index: 2000;
+    box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+    transition: right 0.4s var(--ease);
+  }
+
+  .filter-drawer.open {
+    right: 0;
+  }
+
+  .drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md);
+    border-bottom: 1px solid var(--bg-glass-border);
+  }
+
+  .drawer-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .drawer-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+  }
+
+  .drawer-scroll-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  /* Reset flex orders for mobile since we aren't using flattened display: contents anymore */
+  .institution-selector, .desktop-section-divider, .desktop-locations-label, .search-box, .filter-section, .results-summary {
+    order: initial;
   }
 
   .filter-section.mobile-collapsed {
-    display: none;
+    display: flex; /* Override previous collapsed state, we rely on drawer now */
   }
 
   .pill-btn {

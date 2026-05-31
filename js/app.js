@@ -429,13 +429,29 @@
 
   function initMobileFilterToggle() {
     const filterToggle = document.getElementById('mobile-filter-toggle');
-    const filterSection = document.getElementById('filter-section');
-    if (filterToggle && filterSection) {
-      filterToggle.addEventListener('click', () => {
-        filterToggle.classList.toggle('active');
-        filterSection.classList.toggle('mobile-collapsed');
-      });
+    const filterDrawer = document.getElementById('filter-drawer');
+    const drawerOverlay = document.getElementById('filter-drawer-overlay');
+    const drawerClose = document.getElementById('drawer-close');
+
+    function openDrawer() {
+      if (filterDrawer && drawerOverlay) {
+        filterDrawer.classList.add('open');
+        drawerOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
+      }
     }
+
+    function closeDrawer() {
+      if (filterDrawer && drawerOverlay) {
+        filterDrawer.classList.remove('open');
+        drawerOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    if (filterToggle) filterToggle.addEventListener('click', openDrawer);
+    if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+    if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
   }
 
   // ✨ Modal Logic ✨
