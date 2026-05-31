@@ -506,9 +506,10 @@
       if (e.target === modal) closeModal();
     });
 
-    // Check if it's the first time visiting in this session
+    // Check if it's the first time visiting in this session.
+    // Keep the intro modal off mobile so it does not block list scrolling.
     const hasSeenModal = sessionStorage.getItem('elli-modal-seen');
-    if (!hasSeenModal) {
+    if (!hasSeenModal && window.innerWidth > 768) {
       setTimeout(openModal, 500); // Small delay for effect
       sessionStorage.setItem('elli-modal-seen', 'true');
     }
