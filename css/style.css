@@ -1140,9 +1140,12 @@ body {
   /* Let the property list scroll within a reasonable max height */
   .property-list {
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
     max-height: none;
     padding-bottom: calc(var(--space-lg) + 120px);
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
   }
 
   /* Compact controls on mobile */
