@@ -1146,20 +1146,20 @@ body {
     flex: 1;
     height: 100%;
     min-height: 0;
-    overflow: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    touch-action: pan-y;
   }
 
   /* Let the whole panel scroll naturally on mobile */
   .property-list {
-    flex: 1;
-    height: 100%;
+    flex: none;
+    height: auto;
     min-height: 0;
-    overflow-y: auto;
+    overflow: visible;
     max-height: none;
     padding-bottom: calc(var(--space-lg) + 120px);
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: contain;
-    touch-action: pan-y;
   }
 
   /* Compact controls on mobile */
