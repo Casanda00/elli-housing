@@ -412,10 +412,14 @@ body {
 .property-list {
   flex: 1;
   overflow-y: auto;
+  min-height: 0;
   padding: var(--space-sm);
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  touch-action: pan-y;
 }
 
 /* Loading State */
@@ -1151,6 +1155,7 @@ body {
     padding-bottom: calc(var(--space-lg) + 120px);
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-y: contain;
+    touch-action: pan-y;
   }
 
   /* Compact controls on mobile */
