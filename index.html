@@ -57,6 +57,10 @@
           <span class="transport-icon"><i class="ph ph-bicycle"></i></span>
           <span class="transport-label" data-i18n="bike">Bike</span>
         </button>
+        <button class="transport-btn" data-mode="bus" title="Public Transport">
+          <span class="transport-icon"><i class="ph ph-bus"></i></span>
+          <span class="transport-label" data-i18n="bus">Bus</span>
+        </button>
         <button class="transport-btn" data-mode="car" title="Driving">
           <span class="transport-icon"><i class="ph ph-car"></i></span>
           <span class="transport-label" data-i18n="drive">Drive</span>
@@ -220,7 +224,7 @@
           <h3><i class="ph-fill ph-check-circle" style="color: var(--green);"></i> The Solution</h3>
           <p data-i18n="modalSolution">This project solves that by providing a unified platform! Now you can:</p>
           <ul class="modal-list">
-            <li><i class="ph-fill ph-map-pin"></i> <span data-i18n="modalLi1">Instantly see travel times by foot, bike, or car.</span></li>
+            <li><i class="ph-fill ph-map-pin"></i> <span data-i18n="modalLi1">Instantly see travel times by foot, bike, bus, or car.</span></li>
             <li><i class="ph-fill ph-funnel"></i> <span data-i18n="modalLi2">Filter housing by your rent budget and preferred apartment type.</span></li>
             <li><i class="ph-fill ph-storefront"></i> <span data-i18n="modalLi3">Discover nearby amenities like supermarkets and sports facilities.</span></li>
           </ul>
@@ -257,6 +261,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""></script>
+  <script src="js/config.js"></script>
   <script src="js/properties.js?v=2"></script>
   <script src="js/app.js?v=2"></script>
 </body>

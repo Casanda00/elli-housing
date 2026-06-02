@@ -12,7 +12,14 @@
   const MAP_ZOOM = 13;
   const FETCH_TIMEOUT = 10000;
 
-  const SPEEDS = { foot: 5, bike: 15, car: 40 };
+  // ── Digitransit (Public Transit) Config ─────────────────────────────
+  // API key is loaded from js/config.js (gitignored).
+  // Copy js/config.example.js → js/config.js and add your key.
+  // Register for a free key at: https://portal-api.digitransit.fi/
+  const DIGITRANSIT_API_KEY = (window.ELLI_CONFIG && window.ELLI_CONFIG.DIGITRANSIT_API_KEY) || '';
+  const DIGITRANSIT_URL = 'https://api.digitransit.fi/routing/v2/waltti/gtfs/v1';
+
+  const SPEEDS = { foot: 5, bike: 15, bus: 20, car: 40 };
   const THRESHOLDS = { close: 2, medium: 5 };
 
   // ── i18n ────────────────────────────────────────────────────────────
@@ -29,6 +36,7 @@
       family: "Family",
       walk: "Walk",
       bike: "Bike",
+      bus: "Bus",
       drive: "Drive",
       searchPlaceholder: "Search by address or area...",
       sortBy: "Sort by",
@@ -59,7 +67,7 @@
       modalTitle: "Welcome to Elli Distance Finder",
       modalProblem: "For prospective students who haven't arrived in Joensuu yet, finding the right housing can be tough. You constantly have to juggle between Joensuun Elli's website to check available apartments and Google Maps to manually search the distance to your new campus. This back-and-forth makes finding the right home from afar tedious and frustrating.",
       modalSolution: "This project solves that by providing a unified platform! Now you can:",
-      modalLi1: "Instantly see travel times by foot, bike, or car.",
+      modalLi1: "Instantly see travel times by foot, bike, bus, or car.",
       modalLi2: "Filter housing by your rent budget and preferred apartment type.",
       modalLi3: "Discover nearby amenities like supermarkets and sports facilities.",
       modalStart: "Start Exploring",
@@ -81,6 +89,7 @@
       family: "Perhe",
       walk: "Kävely",
       bike: "Pyörä",
+      bus: "Bussi",
       drive: "Auto",
       searchPlaceholder: "Hae osoitteella tai alueella...",
       sortBy: "Järjestä",
@@ -111,7 +120,7 @@
       modalTitle: "Tervetuloa Ellin Etäisyyshakuun",
       modalProblem: "Uusille opiskelijoille, jotka eivät ole vielä saapuneet Joensuuhun, oikean asunnon löytäminen voi olla haastavaa. Joudut jatkuvasti hyppimään Joensuun Ellin verkkosivujen (vapaiden asuntojen selaaminen) ja Google Mapsin (etäisyyksien mittaaminen) välillä. Tämä edestakainen pomppiminen tekee asunnon etsimisestä kaukaa työlästä ja turhauttavaa.",
       modalSolution: "Tämä projekti ratkaisee ongelman tarjoamalla yhdistetyn alustan! Nyt voit:",
-      modalLi1: "Nähdä heti matka-ajat kävellen, pyörällä tai autolla.",
+      modalLi1: "Nähdä heti matka-ajat kävellen, pyörällä, bussilla tai autolla.",
       modalLi2: "Suodattaa asuntoja vuokrabudjetin ja asuntotyypin mukaan.",
       modalLi3: "Löytää lähipalvelut, kuten supermarketit ja liikuntapaikat.",
       modalStart: "Aloita tutkiminen",
@@ -607,6 +616,12 @@
     return fetch(url, { signal: controller.signal }).finally(() => clearTimeout(timer));
   }
 
+  function fetchWithOptions(url, options = {}, timeout = FETCH_TIMEOUT) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeout);
+    return fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(timer));
+  }
+
   // ── Distance Calculation ────────────────────────────────────────────
   async function calculateAllDistances() {
     showLoading(true);
@@ -622,7 +637,18 @@
     }
 
     if (!osrmSuccess) {
-      ['foot', 'bike', 'car'].forEach(mode => calculateDistancesHaversine(mode, inst));
+      ['foot', 'bike', 'bus', 'car'].forEach(mode => calculateDistancesHaversine(mode, inst));
+    }
+
+    // Try real bus routing via Digitransit (overrides speed estimate)
+    if (DIGITRANSIT_API_KEY) {
+      try {
+        await calculateBusDistancesDigitransit(inst);
+      } catch (err) {
+        console.warn('Digitransit bus routing failed, keeping estimate:', err.message);
+      }
+    } else {
+      console.info('Digitransit API key not set — using speed-based bus estimate. Register at https://portal-api.digitransit.fi/');
     }
 
     showLoading(false);
@@ -652,9 +678,107 @@
       distances[prop.id] = {
         foot: { distance: roadDistMeters, duration: (roadDistKm / SPEEDS.foot) * 3600 },
         bike: { distance: roadDistMeters, duration: (roadDistKm / SPEEDS.bike) * 3600 },
+        bus:  { distance: roadDistMeters, duration: (roadDistKm / SPEEDS.bus) * 3600 },
         car:  { distance: roadDistMeters, duration: drivingDurSecs }
       };
     });
+  }
+
+  // ── Digitransit Public Transit Routing ──────────────────────────────
+  async function calculateBusDistancesDigitransit(inst) {
+    // Query Digitransit for bus+walk itineraries for each property.
+    // We use Promise.allSettled so one failure doesn't block the rest.
+    const BATCH_SIZE = 5; // Max concurrent requests to respect rate limits
+    const results = [];
+
+    for (let i = 0; i < PROPERTIES.length; i += BATCH_SIZE) {
+      const batch = PROPERTIES.slice(i, i + BATCH_SIZE);
+      const batchResults = await Promise.allSettled(
+        batch.map(prop => fetchDigitransitRoute(inst, prop))
+      );
+      results.push(...batchResults);
+      // Small delay between batches to stay under 10 req/s
+      if (i + BATCH_SIZE < PROPERTIES.length) {
+        await new Promise(r => setTimeout(r, 200));
+      }
+    }
+
+    let successCount = 0;
+    PROPERTIES.forEach((prop, i) => {
+      const result = results[i];
+      if (result.status === 'fulfilled' && result.value) {
+        const { duration, distance } = result.value;
+        if (!distances[prop.id]) distances[prop.id] = {};
+        distances[prop.id].bus = { distance, duration };
+        successCount++;
+      }
+      // If failed, the speed-based estimate from OSRM/Haversine stays
+    });
+
+    console.info(`Digitransit: ${successCount}/${PROPERTIES.length} bus routes fetched successfully`);
+  }
+
+  async function fetchDigitransitRoute(inst, prop) {
+    const query = `{
+      planConnection(
+        origin: {location: {coordinate: {latitude: ${inst.lat}, longitude: ${inst.lng}}}}
+        destination: {location: {coordinate: {latitude: ${prop.lat}, longitude: ${prop.lng}}}}
+        first: 3
+        modes: {
+          transit: {transit: [{mode: BUS}]}
+          direct: [WALK]
+        }
+      ) {
+        edges {
+          node {
+            duration
+            legs {
+              mode
+              duration
+              distance
+            }
+          }
+        }
+      }
+    }`;
+
+    const response = await fetchWithOptions(DIGITRANSIT_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'digitransit-subscription-key': DIGITRANSIT_API_KEY
+      },
+      body: JSON.stringify({ query })
+    }, 15000);
+
+    if (!response.ok) throw new Error(`Digitransit HTTP ${response.status}`);
+    const data = await response.json();
+
+    if (data.errors) {
+      throw new Error(`Digitransit GraphQL error: ${data.errors[0].message}`);
+    }
+
+    const edges = data?.data?.planConnection?.edges;
+    if (!edges || edges.length === 0) {
+      // No transit route found (e.g. no bus service to this location)
+      return null;
+    }
+
+    // Pick the itinerary with shortest duration
+    let bestDuration = Infinity;
+    let bestDistance = 0;
+    for (const edge of edges) {
+      const node = edge.node;
+      if (node.duration < bestDuration) {
+        bestDuration = node.duration;
+        // Sum leg distances for total
+        bestDistance = node.legs.reduce((sum, leg) => sum + (leg.distance || 0), 0);
+      }
+    }
+
+    if (bestDuration === Infinity) return null;
+
+    return { duration: bestDuration, distance: bestDistance };
   }
 
   function calculateDistancesHaversine(mode, inst) {
@@ -760,14 +884,14 @@
     const dist = distances[prop.id];
     let distKm = '—';
     let distClass = '';
-    let timeTexts = { foot: '—', bike: '—', car: '—' };
+    let timeTexts = { foot: '—', bike: '—', bus: '—', car: '—' };
 
     if (dist) {
       if (dist[currentMode]) {
         distKm = (dist[currentMode].distance / 1000).toFixed(1);
         distClass = getDistanceClass(parseFloat(distKm));
       }
-      ['foot', 'bike', 'car'].forEach(mode => {
+      ['foot', 'bike', 'bus', 'car'].forEach(mode => {
         if (dist[mode]) timeTexts[mode] = formatDuration(dist[mode].duration);
       });
     }
@@ -830,6 +954,9 @@
         </span>
         <span class="time-estimate ${currentMode === 'bike' ? 'active-mode' : ''}">
           <span class="time-icon"><i class="ph ph-bicycle"></i></span> ${timeTexts.bike}
+        </span>
+        <span class="time-estimate ${currentMode === 'bus' ? 'active-mode' : ''}">
+          <span class="time-icon"><i class="ph ph-bus"></i></span> ${timeTexts.bus}
         </span>
         <span class="time-estimate ${currentMode === 'car' ? 'active-mode' : ''}">
           <span class="time-icon"><i class="ph ph-car"></i></span> ${timeTexts.car}
