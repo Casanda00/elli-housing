@@ -1777,3 +1777,78 @@ input[type=range]:focus {
   font-weight: 600;
   letter-spacing: 0.03em;
 }
+
+/* ==========================================================================
+   Bus Schedule Modal & Popup
+   ========================================================================== */
+
+.schedule-step {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+  position: relative;
+}
+
+.schedule-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 28px;
+  bottom: -16px;
+  width: 2px;
+  background: var(--bg-glass-border);
+}
+
+.step-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--bg-glass);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-light);
+  font-size: 0.9rem;
+  z-index: 1;
+}
+
+.step-details {
+  flex: 1;
+}
+
+.step-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.step-desc {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.step-sub {
+  font-size: 0.75rem;
+  margin-top: 2px;
+}
+
+.btn-schedule {
+  display: inline-block;
+  margin-top: var(--space-sm);
+  background: var(--accent-soft);
+  color: var(--accent-light);
+  border: 1px solid rgba(232, 67, 147, 0.2);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration) var(--ease);
+  width: 100%;
+}
+
+.btn-schedule:hover {
+  background: var(--accent);
+  color: #fff;
+}

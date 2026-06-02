@@ -9,7 +9,9 @@ An interactive, map-based web application designed to help university students i
 ## ✨ Features
 
 - **Interactive Map**: Built with Leaflet.js and OpenStreetMap, featuring a beautiful dark-mode aesthetic with custom Phosphor icons.
-- **Dynamic Routing & Distance**: Uses the OSRM (Open Source Routing Machine) API to instantly calculate walking, cycling, and driving travel times from any Elli property directly to your campus.
+- **Dynamic Routing & Distance**: 
+  - Uses the **OSRM (Open Source Routing Machine) API** to instantly calculate walking, cycling, and driving travel times.
+  - Uses the **Digitransit GraphQL API** to fetch real-time bus schedules, providing step-by-step public transit itineraries from any property directly to campus.
 - **Multi-Factor Filtering**:
   - **Travel Time Radius**: Filter out properties that are too far away (e.g., only show properties within a 15-minute bike ride).
   - **Rent Budget**: Filter properties based on the cheapest available apartment unit (e.g., < 400 €/month).
@@ -21,7 +23,11 @@ An interactive, map-based web application designed to help university students i
 ## 🚀 Tech Stack
 
 - **Frontend**: HTML5, Vanilla CSS (CSS Variables, Flexbox/Grid), Vanilla JavaScript (ES6+).
-- **Mapping**: Leaflet.js (Map rendering), OSRM API (Routing & Isochrones), Nominatim (Geocoding).
+- **Mapping & Routing**: 
+  - **Leaflet.js** for map rendering.
+  - **OSRM API** for walking/cycling/driving routes.
+  - **Digitransit GraphQL API** for real-time bus schedules.
+  - **Nominatim** for geocoding.
 - **Icons**: Phosphor Icons (CDN).
 - **Data Processing Scripts**: Node.js & Python (for scraping, geocoding, and amenity distance calculations).
 

@@ -707,9 +707,17 @@
     PROPERTIES.forEach((prop, i) => {
       const result = results[i];
       if (result.status === 'fulfilled' && result.value) {
-        const { duration, distance } = result.value;
+        const { duration, distance, startTime, itinerary } = result.value;
+        const hasBusLeg = itinerary && itinerary.legs.some(leg => leg.mode === 'BUS');
+        
         if (!distances[prop.id]) distances[prop.id] = {};
-        distances[prop.id].bus = { distance, duration };
+        
+        if (hasBusLeg) {
+          distances[prop.id].bus = { distance, duration, startTime, itinerary };
+        } else {
+          // If the best itinerary is just a walk, clear out any bus estimate
+          distances[prop.id].bus = null;
+        }
         successCount++;
       }
       // If failed, the speed-based estimate from OSRM/Haversine stays
@@ -720,22 +728,30 @@
 
   async function fetchDigitransitRoute(inst, prop) {
     const query = `{
-      planConnection(
-        origin: {location: {coordinate: {latitude: ${inst.lat}, longitude: ${inst.lng}}}}
-        destination: {location: {coordinate: {latitude: ${prop.lat}, longitude: ${prop.lng}}}}
-        first: 3
-        modes: {
-          transit: {transit: [{mode: BUS}]}
-          direct: [WALK]
-        }
+      plan(
+        from: {lat: ${prop.lat}, lon: ${prop.lng}}
+        to: {lat: ${inst.lat}, lon: ${inst.lng}}
+        numItineraries: 10
+        searchWindow: 86400
+        transportModes: [{mode: BUS}, {mode: WALK}]
       ) {
-        edges {
-          node {
+        itineraries {
+          startTime
+          duration
+          legs {
+            mode
+            startTime
+            endTime
             duration
-            legs {
-              mode
-              duration
-              distance
+            distance
+            route {
+              shortName
+            }
+            from {
+              name
+            }
+            to {
+              name
             }
           }
         }
@@ -758,27 +774,34 @@
       throw new Error(`Digitransit GraphQL error: ${data.errors[0].message}`);
     }
 
-    const edges = data?.data?.planConnection?.edges;
-    if (!edges || edges.length === 0) {
+    const itineraries = data?.data?.plan?.itineraries;
+    if (!itineraries || itineraries.length === 0) {
       // No transit route found (e.g. no bus service to this location)
       return null;
     }
 
+    // Prefer itineraries that actually use a bus
+    const busItineraries = itineraries.filter(itin => itin.legs.some(leg => leg.mode === 'BUS'));
+    const candidateItineraries = busItineraries.length > 0 ? busItineraries : itineraries;
+
     // Pick the itinerary with shortest duration
     let bestDuration = Infinity;
     let bestDistance = 0;
-    for (const edge of edges) {
-      const node = edge.node;
-      if (node.duration < bestDuration) {
-        bestDuration = node.duration;
-        // Sum leg distances for total
-        bestDistance = node.legs.reduce((sum, leg) => sum + (leg.distance || 0), 0);
+    let bestStartTime = null;
+    let bestItinerary = null;
+    
+    for (const itin of candidateItineraries) {
+      if (itin.duration < bestDuration) {
+        bestDuration = itin.duration;
+        bestDistance = itin.legs.reduce((sum, leg) => sum + (leg.distance || 0), 0);
+        bestStartTime = itin.startTime;
+        bestItinerary = itin;
       }
     }
 
     if (bestDuration === Infinity) return null;
 
-    return { duration: bestDuration, distance: bestDistance };
+    return { duration: bestDuration, distance: bestDistance, startTime: bestStartTime, itinerary: bestItinerary };
   }
 
   function calculateDistancesHaversine(mode, inst) {
@@ -892,7 +915,14 @@
         distClass = getDistanceClass(parseFloat(distKm));
       }
       ['foot', 'bike', 'bus', 'car'].forEach(mode => {
-        if (dist[mode]) timeTexts[mode] = formatDuration(dist[mode].duration);
+        if (dist[mode]) {
+          timeTexts[mode] = formatDuration(dist[mode].duration);
+          if (mode === 'bus' && dist[mode].startTime) {
+            const d = new Date(dist[mode].startTime);
+            const timeString = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+            timeTexts[mode] += ` <span style="font-size: 0.85em; opacity: 0.7;">(${timeString})</span>`;
+          }
+        }
       });
     }
 
@@ -1160,8 +1190,40 @@
       }
     }
 
-    // Elli link
-    document.getElementById('route-elli-link').href = elliUrl(prop);
+    // Elli link & Schedule link
+    const linksContainer = document.getElementById('route-links-container');
+    if (linksContainer) {
+      // If we added a container
+    }
+    
+    let elliLinkHtml = `<a class="route-elli-link" id="route-elli-link" href="${elliUrl(prop)}" target="_blank" rel="noopener noreferrer">
+      <span data-i18n="viewOnElli">View on Elli's website →</span>
+    </a>`;
+
+    const dist = distances[prop.id];
+    const hasBusItin = dist && dist.bus && dist.bus.itinerary;
+    if (hasBusItin) {
+      elliLinkHtml += `
+      <a class="route-elli-link" href="#" onclick="window.showBusSchedule('${prop.id}'); return false;" style="margin-left: 15px; color: var(--accent-light);">
+        <span>View bus schedule →</span>
+      </a>`;
+    }
+
+    // We'll replace the existing route-elli-link with our new HTML inside its parent
+    const oldLink = document.getElementById('route-elli-link');
+    if (oldLink && oldLink.parentElement) {
+      // Find or create a container so we don't duplicate
+      let container = document.getElementById('route-links-wrapper');
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'route-links-wrapper';
+        container.style.display = 'flex';
+        container.style.gap = '15px';
+        container.style.flexWrap = 'wrap';
+        oldLink.parentElement.replaceChild(container, oldLink);
+      }
+      container.innerHTML = elliLinkHtml;
+    }
 
     document.getElementById('route-info-bar').classList.add('visible');
   }
@@ -1185,6 +1247,60 @@
   }
 
   // ── Boot ────────────────────────────────────────────────────────────
-  document.addEventListener('DOMContentLoaded', init);
+  // Modal Events
+  document.getElementById('close-schedule-modal')?.addEventListener('click', () => {
+    document.getElementById('schedule-modal').classList.remove('active');
+  });
+  document.getElementById('schedule-modal')?.addEventListener('click', (e) => {
+    if (e.target.id === 'schedule-modal') {
+      e.target.classList.remove('active');
+    }
+  });
 
+  // Global function for Leaflet popup button
+  window.showBusSchedule = function(propId) {
+    const prop = PROPERTIES.find(p => p.id === propId);
+    const dist = distances[propId];
+    if (!prop || !dist || !dist.bus || !dist.bus.itinerary) return;
+
+    const itin = dist.bus.itinerary;
+    const titleEl = document.getElementById('schedule-modal-title');
+    const bodyEl = document.getElementById('schedule-modal-body');
+    
+    titleEl.textContent = `Bus Schedule: ${prop.name} → ${currentInstitution.name}`;
+
+    let html = '';
+    itin.legs.forEach(leg => {
+      const sTime = new Date(leg.startTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false});
+      const eTime = new Date(leg.endTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false});
+      
+      let icon = leg.mode === 'BUS' ? '<i class="ph-fill ph-bus"></i>' : '<i class="ph-fill ph-person-simple-walk"></i>';
+      let desc = '';
+      if (leg.mode === 'BUS') {
+        const routeName = leg.route && leg.route.shortName ? leg.route.shortName : 'Bus';
+        const fromName = leg.from && leg.from.name ? leg.from.name : 'Unknown stop';
+        const toName = leg.to && leg.to.name ? leg.to.name : 'Unknown stop';
+        desc = `Take bus ${routeName} from ${fromName} to ${toName}`;
+      } else {
+        const toName = leg.to && leg.to.name !== 'Destination' ? leg.to.name : currentInstitution.name;
+        desc = `Walk to ${toName}`;
+      }
+
+      html += `
+        <div class="schedule-step">
+          <div class="step-icon">${icon}</div>
+          <div class="step-details">
+            <div class="step-time">${sTime} - ${eTime} (${Math.round(leg.duration/60)} min)</div>
+            <div class="step-desc">${desc}</div>
+            <div class="step-sub">${(leg.distance).toFixed(0)}m</div>
+          </div>
+        </div>
+      `;
+    });
+
+    bodyEl.innerHTML = html;
+    document.getElementById('schedule-modal').classList.add('active');
+  };
+
+  init();
 })();
